@@ -10,13 +10,8 @@ const int led2 = 11;
 const char* estado;
 
 void led(int valor = 0) {
-  if (valor == 1) {
-    digitalWrite(led1, HIGH);
-    digitalWrite(led2, LOW);
-  } else if (valor == 2) {
-    digitalWrite(led1, LOW);
-    digitalWrite(led2, HIGH);
-  }
+  digitalWrite(led1, valor == 1 ? HIGH : LOW);
+  digitalWrite(led2, valor == 2 ? HIGH : LOW);
 }
 
 unsigned long calcularDistancia() {
