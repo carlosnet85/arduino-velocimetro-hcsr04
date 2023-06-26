@@ -5,10 +5,14 @@ Este projeto consiste em um **velocímetro simples** utilizando um sensor [ultra
 
 Você pode fazer o download dos arquivos no codigo fonte deste repositorio.
 
-# Circuito (Fritzing)
+## Circuito (Fritzing)
 ![circuito](https://github.com/carlosnet85/velocimetro-ultrasonico/assets/54481508/43a99a92-638d-4db3-8cea-64767baf8c6b)
 
-# Explicação do codigo
+## Lista de melhorias propostas
+- [ ] Deixar a leitura mais precisa
+- [ ] Adicionar tratamento de erros
+
+## Explicação do codigo
 **Primeiro vamos definir as bibliotecas no codigo.**
 <br>A biblioteca [**Wire**](https://www.arduino.cc/reference/en/language/functions/communication/wire/) é utilizada para a comunicação I2C.
 <br>A biblioteca [**LiquidCrystal_I2C**](https://reference.arduino.cc/reference/en/libraries/liquidcrystal-i2c/) é específica para displays LCD que utilizam comunicação I2C. 
