@@ -9,39 +9,46 @@ Você pode fazer o download dos arquivos no codigo fonte deste repositorio.
 ![circuito](https://github.com/carlosnet85/velocimetro-ultrasonico/assets/54481508/43a99a92-638d-4db3-8cea-64767baf8c6b)
 
 # Explicação do codigo
-A biblioteca **Wire** é utilizada para a comunicação I2C, enquanto a biblioteca **LiquidCrystal_I2C** é específica para displays LCD que utilizam comunicação I2C. Elas são incluídas no código para que possamos (no caso deste projeto) controlar o display LCD I2C.
+**Primeiro vamos definir as bibliotecas no codigo.**
+<br>A biblioteca [**Wire**](https://www.arduino.cc/reference/en/language/functions/communication/wire/) é utilizada para a comunicação I2C.
+<br>A biblioteca [**LiquidCrystal_I2C**](https://reference.arduino.cc/reference/en/libraries/liquidcrystal-i2c/) é específica para displays LCD que utilizam comunicação I2C. 
+* Elas são incluídas no código para que possamos (no caso deste projeto) controlar o display LCD I2C.
 ```
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 ```
 
 <br>Aqui criamos o **objeto** lcd do tipo LiquidCrystal_I2C. No caso deste projeto, o endereço I2C do display LCD é 0x27, com 16 colunas e 2 linhas.
+* LiquidCrystal_I2C lcd(Endreço, Colunas, Linhas);
 ```
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 ```
 
-**Agora vamos definir os pinos digitais**
-<br>Os pinos **trigPin** e **echoPin** são definidos como as conexões do sensor ultrassônico HC-SR04.
+**<br>Agora vamos definir os pinos digitais**
+<br>Os valores **trigPin** e **echoPin** são definidos como as conexões (pinos) do sensor ultrassônico HC-SR04.
 * O trig é usado para enviar o sinal de disparo ao sensor (ping).
-* echo é usado para receber o sinal de retorno.
+* O echo é usado para receber o sinal de retorno.
 ```
 const int trigPin = 3;
 const int echoPin = 4;
 ```
 
-Os **leds** 1 e 2 serão usados para indicar diferentes estados do objeto em movimento.
+Os **leds** serão usados para indicar diferentes estados do objeto em movimento.
+* o led1 vai indicar que o objeto esta aproximando.
+* o led2 vai indicar que o objeto esta afastando.
 ```
 const int led1 = 8;
 const int led2 = 11;
 ```
 
-
+**<br>Criamos a variavel "estado"**
 <br>A variável **estado** é definida como um ponteiro para uma cadeia de caracteres (const char*) e será utilizada para armazenar o estado do objeto (parado, se mexendo ou se afastando).
 ```
 const char* estado;
 ```
 
-<br>A função **led()** é definida para controlar os dois LEDs. Ela possui um parâmetro valor que tem um valor padrão de 0.
+**<br>Função led()**
+<br>Aqui criamos essa função para controlar os dois LEDs. Ela possui um parâmetro valor que tem um valor padrão de 0.
 ```
 void led(int valor = 0) {
   digitalWrite(led1, (valor == 1) ? HIGH : LOW);
@@ -54,7 +61,7 @@ void led(int valor = 0) {
 <br>Da mesma forma, o operador condicional ternário```(valor == 2) ? HIGH : LOW``` é usado para determinar o estado do LED 2.
 
 
-**Também pode ser escrito assim:**
+*Também pode ser escrito assim:*
 ```
 void led(int valor = 0) {
   if(valor == 1){
@@ -67,6 +74,7 @@ void led(int valor = 0) {
 }
 ```
 
+**<br>Função calculardDistancia()**
 <br> Aqui criamos uma função que controla o ultrassonico para assim medir a distancia
 ```\cpp
 unsigned long calcularDistancia() {
@@ -90,7 +98,8 @@ unsigned long calcularDistancia() {
 
 <br>Essa função permite medir a distância usando o sensor ultrassônico e os pulsos de disparo e retorno, fornecendo uma estimativa da distância entre o sensor e o objeto em movimento.
 
-<br> Aqui criamos uma função que vai utilizar a função calcularVelocidade() para calcular a velocidade aproximada do objeto em movimento com base nas medições de distância.
+**<br>Função calcularVelocidade()**
+<br> Aqui criamos uma função que vai utilizar a função calcularDistancia() para calcular a velocidade aproximada do objeto em movimento com base nas medições de distância.
 ```\cpp
 float calcularVelocidade() {
   float distanciaIni = calcularDistancia();
@@ -146,6 +155,7 @@ Verifica se a velocidade calculada é menor que zero (ou negativa). Se sim, sign
 ```
 Se nenhuma das condições anteriores for verdadeira, significa que o objeto está se aproximando. Portanto, acende os led1 chamando a função led(1), define o estado como "Aprox."(aproximando) e retorna a velocidade absoluta.
 
+**<br>Antes do loop**
 <br> Aqui definimos os pinos dos leds e do trig como OUTPUT, ou seja, estes pinos serão usados para enviar sinais de saída. já o pino echo será usado como pino de entrada de sinal. Também vamos inicializa o display LCD e ligar a luz de fundo dele. Esta função é usada para configurar o ambiente e inicializar as configurações iniciais antes do loop principal começar a ser executado. Executa apenas uma vez.
 ```
 void setup() {
@@ -159,6 +169,7 @@ void setup() {
 }
 ```
 
+**<br>Coração do programa**
 <br> Finalmente, vamos fazer todas as funções serem chamadas, que inclusive, as informações serão exibidas em um display LCD. É onde a lógica principal do programa é implementada e repetida até que o Arduino seja desligado.
 ```
 void loop() {
