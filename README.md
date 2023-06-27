@@ -1,5 +1,5 @@
 # Velocímetro com Sensor HC-SR04 e Arduino
-Imagem do Velocímetro
+![](https://github.com/carlosnet85/velocimetro-ultrasonico/assets/54481508/6deb811b-67a5-494b-b392-e81c0335f9b7)
 
 Este projeto consiste em um **velocímetro simples** utilizando um sensor [ultrasonico](https://autocorerobotica.blog.br/aprenda-utilizar-o-sensor-de-distancia-ultrassonico-hc-sr04-com-arduino/) e uma placa [Arduino](https://blog.kalatec.com.br/arduino-o-que-e/#:~:text=A%20placa%20funciona%20atrav%C3%A9s%20de,e%20instalado%20em%20um%20computador.). <br>O sensor mede a distância entre ele e um objeto em movimento para calcular a velocidade aproximada. O resultado é exibido em um display, mostrando tanto a distância quanto a velocidade calculada.
 
