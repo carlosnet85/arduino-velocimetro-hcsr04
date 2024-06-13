@@ -10,7 +10,7 @@ const char* estado;    // variavel que armazena o estado do movimento
 float intervalo = 500; // intervalo de tempo entre as leituras do sensor (em milissegundos)
 
 // funcao que mede a distancia com base nos pulsos do ultrassonico
-unsigned long lerUltrasonico() {
+unsigned long lerUltrasonico(int trigPin, int echoPin) {
   digitalWrite(trigPin, LOW);  // intervalo para o proximo pulso
   delayMicroseconds(2);        
   digitalWrite(trigPin, HIGH); // pulsa
@@ -48,10 +48,10 @@ void setup() {
 
 void loop() {
   // le a distancia medida pelo sensor ultrassônico
-  unsigned long distInicial = lerUltrasonico();
+  unsigned long distInicial = lerUltrasonico(trigPin, echoPin);
   delay(intervalo); // aguarda antes de fazer a proxima medicao
  // le novamente a distancia medida pelo sensor ultrassônico
-  unsigned long distFinal = lerUltrasonico();
+  unsigned long distFinal = lerUltrasonico(trigPin, echoPin);
 
   // registra a distancia inicial (a distancia entre o objeto e o ultrassonico) no display LCD
   lcd.setCursor(0, 0);
